@@ -7,7 +7,7 @@ with stg_nation as (
       n_regionkey as region_id,
       n_name as name,
       n_comment as comment
-    from SOURCEDB.MK_MALL.NATIONS
+    from {{ source('src', 'nations')}}
 )
 
 select * from stg_nation
