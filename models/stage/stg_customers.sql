@@ -11,7 +11,7 @@ with stg_cust as (
      c_acctbal as account_balance,
      c_mktsegment as market_segment,
      c_comment as comment
-    from SOURCEDB.MK_MALL.CUSTOMERS
+    from {{ source('src', 'customers')}}
 )
 
 select * from stg_cust
