@@ -8,3 +8,4 @@ sources:
       - name: regions
       - name: nations
       - name: customers
+      - name: orders
