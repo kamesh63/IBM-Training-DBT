@@ -41,8 +41,9 @@ models:
     stage:
       +materialized: table
     intermediate:
-      +materialized: table
+      +schema: dbt_int
       +transient: false
+      +materialized: table
 
 data_tests: 
   +store_failures: true
