@@ -9,3 +9,7 @@ sources:
       - name: nations
       - name: customers
       - name: orders
+      - name: parts
+      - name: partsupps
+      - name: lineitems
+      - name: suppliers
