@@ -6,7 +6,12 @@ sources:
     schema: mk_mall
     tables:
       - name: regions
+        description: Table for Regional Information
+        columns:
+          - name: n_regionkey
+            description: Unique id for each region
       - name: nations
+        description: Primary key for nations table
       - name: customers
       - name: orders
       - name: parts

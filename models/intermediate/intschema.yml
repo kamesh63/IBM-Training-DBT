@@ -7,3 +7,14 @@ models:
         tests:
           - not_null
           - unique
+  - name: int_partsupplier_statistics
+    columns:
+      - name: inventory_value_usd
+        description: "{{ doc('silvercol') }}"
+      - name: unit_margin
+      - name: Inventory_level
+      - name: supplier_finance_health
+      - name: supplier_data_status
+      - name: normal_margin_status
+      - name: inventory_value_eur
+        description: Value in currency euro

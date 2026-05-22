@@ -1,11 +1,19 @@
 SELECT
 
-    AVAILABLE_QUANTITY * SUPPLY_COST AS int_value_usd,
+    ROUND(
+        AVAILABLE_QUANTITY * SUPPLY_COST,
+        2
+    ) AS int_value_usd,
 
-    {{ usd_eur('AVAILABLE_QUANTITY * SUPPLY_COST') }}
-        AS int_value_eur,
+    {{ usd_eur(
+        'AVAILABLE_QUANTITY * SUPPLY_COST',
+        2
+    ) }} AS int_value_eur,
 
-    p.RETAIL_PRICE - ps.SUPPLY_COST AS unit_margin,
+    ROUND(
+        p.RETAIL_PRICE - ps.SUPPLY_COST,
+        2
+    ) AS unit_margin,
 
     ROUND(
         (
@@ -38,7 +46,11 @@ SELECT
             THEN FALSE
 
         ELSE TRUE
-    END AS margin_status_normal
+    END AS margin_status_normal,
+
+    CURRENT_TIMESTAMP() AS updated_time,
+
+    CURRENT_USER() AS user_name
 
 FROM {{ ref('stg_parts') }} p
 
