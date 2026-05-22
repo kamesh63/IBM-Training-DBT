@@ -1,1 +1,37 @@
-select * from {{ ref('stg_lineitems') }}
+{{ config(materialized='table') }}
+
+WITH stg_lineitems AS (
+
+    SELECT
+        L_ORDERKEY AS ORDER_ID,
+        L_PARTKEY AS PART_ID,
+        L_SUPPKEY AS SUPPLIER_ID,
+        L_LINENUMBER AS LINE_NUMBER,
+        L_COMMENT AS COMMENT,
+        L_SHIPMODE AS SHIP_MODE,
+        L_SHIPINSTRUCT AS SHIP_INSTRUCTIONS,
+        L_QUANTITY AS QUANTITY,
+
+        ROUND(L_EXTENDEDPRICE, 2) AS EXTENDED_PRICE_USD,
+
+        {{ usd_eur('L_EXTENDEDPRICE') }}
+            AS EXTENDED_PRICE_EUR,
+
+        L_DISCOUNT AS DISCOUNT_PERCENTAGE,
+        L_TAX AS TAX_RATE,
+        L_LINESTATUS AS STATUS_CODE,
+        L_RETURNFLAG AS RETURN_FLAG,
+        L_SHIPDATE AS SHIP_DATE,
+        L_COMMITDATE AS COMMIT_DATE,
+        L_RECEIPTDATE AS RECEIPT_DATE,
+
+        CURRENT_TIMESTAMP() AS UPDATED_TIME,
+
+        CURRENT_USER() AS USER_NAME
+
+    FROM {{ source('src', 'lineitems') }}
+
+)
+
+SELECT *
+FROM stg_lineitems
